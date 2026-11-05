@@ -38,7 +38,7 @@ export default function LoginPage() {
         transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
         className="glass w-full max-w-sm rounded-3xl p-8 shadow-2xl"
       >
-        <p className="font-hand text-center text-3xl text-gold">Feliz Navidad</p>
+        <p className="font-accent text-center text-3xl text-gold">Feliz Navidad</p>
         <h1 className="font-display mt-1 text-center text-4xl font-semibold text-cream">
           Nuestra Navidad
         </h1>

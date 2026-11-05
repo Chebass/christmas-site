@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import AppHeader from "@/components/AppHeader";
 import Mailbox, { type Letter } from "@/components/Mailbox";
+import { MailboxSkeleton } from "@/components/Skeleton";
 
 async function Data() {
   const supabase = await createClient();
@@ -35,13 +35,10 @@ async function Data() {
 
 export default function CartasPage() {
   return (
-    <>
-      <AppHeader />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-16 pt-2">
-        <Suspense fallback={<p className="font-hand p-8 text-2xl text-gold">Revisando el buzón…</p>}>
-          <Data />
-        </Suspense>
-      </main>
-    </>
+    <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-16 pt-4">
+      <Suspense fallback={<MailboxSkeleton />}>
+        <Data />
+      </Suspense>
+    </main>
   );
 }

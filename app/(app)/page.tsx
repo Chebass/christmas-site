@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import AppHeader from "@/components/AppHeader";
 import Countdown from "@/components/Countdown";
 import ListCard from "@/components/ListCard";
+import { HomeSkeleton } from "@/components/Skeleton";
 
 async function Cards() {
   const supabase = await createClient();
@@ -40,19 +40,16 @@ async function Cards() {
 
 export default function Home() {
   return (
-    <>
-      <AppHeader />
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center gap-10 px-5 pb-16 pt-6 text-center">
-        <div>
-          <p className="font-hand text-3xl text-gold">Faltan para Navidad</p>
-          <div className="mt-3 flex justify-center">
-            <Countdown />
-          </div>
+    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center gap-12 px-5 pb-16 pt-10 text-center">
+      <div>
+        <p className="font-accent text-3xl text-gold">Faltan para Navidad</p>
+        <div className="mt-5 flex justify-center">
+          <Countdown />
         </div>
-        <Suspense fallback={<div className="h-72" />}>
-          <Cards />
-        </Suspense>
-      </main>
-    </>
+      </div>
+      <Suspense fallback={<HomeSkeleton />}>
+        <Cards />
+      </Suspense>
+    </main>
   );
 }

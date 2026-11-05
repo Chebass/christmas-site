@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -92,7 +92,7 @@ export default function ProfileForm() {
         transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
         className="glass w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl"
       >
-        <p className="font-hand text-3xl text-gold">CuÃ©ntanos de ti</p>
+        <p className="font-accent text-3xl text-gold">Un poco sobre ti</p>
         <h1 className="font-display mt-1 text-3xl font-semibold">Tu perfil</h1>
 
         <label className="group mx-auto mt-6 block w-fit cursor-pointer">
@@ -130,7 +130,7 @@ export default function ProfileForm() {
           disabled={saving}
           className="btn btn-red mt-6 w-full disabled:opacity-60"
         >
-          {saving ? "Guardandoâ€¦" : "Guardar y entrar"}
+          {saving ? "Guardando…" : "Guardar y entrar"}
         </button>
       </motion.form>
     </div>

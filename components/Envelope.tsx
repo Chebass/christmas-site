@@ -56,7 +56,7 @@ export default function Envelope({
         </span>
       )}
 
-      <p className="font-hand text-xl text-red-deep">
+      <p className="font-accent text-xl text-red-deep">
         {mine ? `Para ${partnerName}` : `De ${partnerName}`}
       </p>
       <p className="font-display mt-1 truncate text-lg font-semibold">

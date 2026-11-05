@@ -41,7 +41,7 @@ export default function ListCard({
         />
         <div className="mt-3 flex flex-col items-center text-center">
           <Avatar src={avatarUrl} name={name} size={96} />
-          <p className="font-hand mt-3 text-2xl text-red-deep">
+          <p className="font-accent mt-3 text-2xl text-red-deep">
             {mine ? "Mi lista de deseos" : "Su lista de deseos"}
           </p>
           <h2 className="font-display text-3xl font-semibold">{name}</h2>

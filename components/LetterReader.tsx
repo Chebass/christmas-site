@@ -23,7 +23,7 @@ export default function LetterReader({
         <div className="absolute right-6 top-6">
           <Stamp id={letter.stamp} size={48} />
         </div>
-        <p className="font-hand text-2xl text-red-deep">De {fromName}</p>
+        <p className="font-accent text-2xl text-red-deep">De {fromName}</p>
         <h2 className="font-display mt-1 pr-16 text-2xl font-semibold">
           {letter.subject || "Sin asunto"}
         </h2>

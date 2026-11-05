@@ -69,7 +69,7 @@ export default function Mailbox({
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4 py-4">
         <div>
-          <p className="font-hand text-3xl text-gold">Nuestro buzón</p>
+          <p className="font-accent text-3xl text-gold">Nuestro buzón</p>
           <h1 className="font-display text-4xl font-semibold">Cartas</h1>
         </div>
         <button
@@ -88,41 +88,55 @@ export default function Mailbox({
             role="tab"
             aria-selected={tab === t}
             onClick={() => setTab(t)}
-            className={`rounded-full px-5 py-2 font-medium transition-colors ${
-              tab === t ? "bg-gold text-ink" : "text-cream/80"
-            }`}
+            className="relative rounded-full px-5 py-2 font-medium transition-colors"
+            style={{ color: tab === t ? "var(--ink)" : "rgba(247,239,224,0.8)" }}
           >
-            {t === "inbox" ? `Recibidas${unread ? ` (${unread})` : ""}` : "Enviadas"}
+            {tab === t && (
+              <motion.span
+                layoutId="tab-pill"
+                className="absolute inset-0 rounded-full bg-gold"
+                transition={{ type: "spring", stiffness: 450, damping: 36 }}
+              />
+            )}
+            <span className="relative">
+              {t === "inbox" ? `Recibidas${unread ? ` (${unread})` : ""}` : "Enviadas"}
+            </span>
           </button>
         ))}
       </div>
 
-      <ul className="mt-8 grid gap-6 sm:grid-cols-2">
-        <AnimatePresence mode="popLayout">
-          {list.map((l, i) => (
-            <motion.li
-              key={`${tab}-${l.id}`}
-              layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
-            >
-              <Envelope
-                letter={l}
-                mine={tab === "sent"}
-                partnerName={partner?.display_name ?? ""}
-                onOpen={() => open(l, tab === "sent")}
-              />
-            </motion.li>
-          ))}
-        </AnimatePresence>
-      </ul>
-      {list.length === 0 && (
-        <p className="font-hand mt-10 text-center text-2xl text-cream/60">
-          {tab === "inbox" ? "Aún no hay cartas por aquí…" : "Todavía no has enviado ninguna."}
-        </p>
-      )}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={tab}
+          initial={{ opacity: 0, x: tab === "inbox" ? -24 : 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: tab === "inbox" ? 24 : -24 }}
+          transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+        >
+          <ul className="mt-8 grid gap-6 sm:grid-cols-2">
+            {list.map((l, i) => (
+              <motion.li
+                key={l.id}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.04 + i * 0.05, ease: [0.23, 1, 0.32, 1] }}
+              >
+                <Envelope
+                  letter={l}
+                  mine={tab === "sent"}
+                  partnerName={partner?.display_name ?? ""}
+                  onOpen={() => open(l, tab === "sent")}
+                />
+              </motion.li>
+            ))}
+          </ul>
+          {list.length === 0 && (
+            <p className="font-accent mt-10 text-center text-2xl text-cream/60">
+              {tab === "inbox" ? "Aún no hay cartas por aquí…" : "Todavía no has enviado ninguna."}
+            </p>
+          )}
+        </motion.div>
+      </AnimatePresence>
 
       <AnimatePresence>
         {reading && (
