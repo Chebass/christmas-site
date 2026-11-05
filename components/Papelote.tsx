@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Tldraw,
   getSnapshot,
@@ -19,11 +19,11 @@ type Props = {
 };
 
 export default function Papelote({ ownerId, readOnly, initialDocument }: Props) {
-  const supabase = useRef(createClient()).current;
+  const [supabase] = useState(createClient);
   const editorRef = useRef<Editor | null>(null);
 
   // Las imágenes se guardan en Storage y el snapshot solo lleva la URL.
-  const assets: TLAssetStore = {
+  const [assets] = useState<TLAssetStore>(() => ({
     async upload(_asset, file) {
       const blob = await resizeImage(file, 1600, 0.82);
       const path = `${ownerId}/${crypto.randomUUID()}.jpg`;
@@ -36,7 +36,7 @@ export default function Papelote({ ownerId, readOnly, initialDocument }: Props) 
       };
     },
     resolve: (asset) => asset.props.src,
-  };
+  }));
 
   function onMount(editor: Editor) {
     editorRef.current = editor;
