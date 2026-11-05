@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { PendingLink } from "./NavigationProvider";
 import { motion } from "framer-motion";
 import Avatar from "./Avatar";
 
@@ -30,7 +30,7 @@ export default function ListCard({
       whileTap={{ scale: 0.98 }}
       className="w-full max-w-xs"
     >
-      <Link
+      <PendingLink
         href={`/lista/${id}`}
         className="group relative block rounded-[1.75rem] bg-paper p-6 text-ink shadow-[0_24px_50px_-20px_rgba(0,0,0,0.7)]"
       >
@@ -49,7 +49,7 @@ export default function ListCard({
             {mine ? "Abrir y escribir" : "Abrir y ver"}
           </span>
         </div>
-      </Link>
+      </PendingLink>
     </motion.div>
   );
 }

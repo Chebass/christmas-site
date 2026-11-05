@@ -2,7 +2,41 @@ export function Skeleton({ className = "" }: { className?: string }) {
   return <div aria-hidden className={`skeleton rounded-xl ${className}`} />;
 }
 
-export function HomeSkeleton() {
+export function ProfileSkeleton() {
+  return (
+    <main className="flex flex-1 items-center justify-center px-4 py-10">
+      <div role="status" aria-label="Cargando perfil" className="glass w-full max-w-sm rounded-3xl p-8">
+        <div className="flex flex-col items-center gap-4">
+          <Skeleton className="h-6 w-40" />
+          <Skeleton className="h-8 w-32" />
+          <Skeleton className="h-32 w-32 !rounded-full" />
+          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-12 w-full !rounded-full" />
+        </div>
+      </div>
+    </main>
+  );
+}
+
+export function HomeSkeleton({ withCountdown = false }: { withCountdown?: boolean }) {
+  return (
+    <>
+      {withCountdown && (
+        <div className="flex flex-col items-center gap-5">
+          <Skeleton className="h-9 w-64" />
+          <div className="flex gap-5">
+            {[0, 1, 2, 3].map((i) => (
+              <Skeleton key={i} className="h-[112px] w-[76px] !rounded-3xl sm:w-[112px]" />
+            ))}
+          </div>
+        </div>
+      )}
+      <HomeCardsSkeleton />
+    </>
+  );
+}
+
+function HomeCardsSkeleton() {
   return (
     <div
       role="status"

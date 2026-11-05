@@ -73,11 +73,17 @@ export default function Mailbox({
           <h1 className="font-display text-4xl font-semibold">Cartas</h1>
         </div>
         <button
-          className="btn btn-red"
+          className="write-btn group"
           disabled={!partner}
           onClick={() => setWriting({})}
         >
-          ✉ Escribir carta
+          <span>Escribir carta</span>
+          <span
+            aria-hidden
+            className="inline-block transition-transform duration-300 group-hover:translate-x-1"
+          >
+            →
+          </span>
         </button>
       </div>
 

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Link from "next/link";
+import { PendingLink } from "./NavigationProvider";
 import { signOut } from "@/app/actions";
 import NavLinks, { type NavItem } from "./NavLinks";
 
@@ -14,7 +14,7 @@ export default function AppHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-gold/15 bg-night/70 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link
+        <PendingLink
           href="/"
           className="font-display group shrink-0 text-lg font-semibold text-cream"
         >
@@ -25,7 +25,7 @@ export default function AppHeader() {
             🎄
           </span>
           <span className="hidden sm:inline">Nuestra Navidad</span>
-        </Link>
+        </PendingLink>
         <Suspense
           fallback={
             <nav className="flex items-center gap-1">

@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Caveat, Inter, Playfair_Display } from "next/font/google";
+import { Fraunces, Kalam, Inter, Playfair_Display } from "next/font/google";
 import Snow from "@/components/Snow";
 import "./globals.css";
 
 const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"] });
-const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"] });
+const caveat = Kalam({ variable: "--font-caveat", subsets: ["latin"], weight: ["300", "400", "700"] });
 const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"], style: ["italic"] });
 const inter = Inter({ variable: "--font-body", subsets: ["latin"] });
 

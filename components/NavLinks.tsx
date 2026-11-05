@@ -1,25 +1,30 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { PendingLink, useNavigationPending } from "./NavigationProvider";
 
 export type NavItem = { href: string; label: string };
 
 export default function NavLinks({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
+  const { pending } = useNavigationPending();
+  const current = pending ?? pathname; // el destino se marca al instante
+
   return (
     <nav className="flex items-center gap-1 overflow-x-auto" aria-label="Principal">
       {items.map((it) => {
-        const active =
-          it.href === "/" ? pathname === "/" : pathname.startsWith(it.href);
+        const active = it.href === "/" ? current === "/" : current.startsWith(it.href);
         return (
-          <Link
+          <PendingLink
             key={it.href}
             href={it.href}
             aria-current={active ? "page" : undefined}
-            className="relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors"
-            style={{ color: active ? "var(--ink)" : "rgba(247,239,224,0.8)" }}
+            className={`relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-[color,background-color,transform] duration-200 active:scale-95 ${
+              active
+                ? "text-ink"
+                : "text-cream/80 hover:bg-cream/10 hover:text-gold"
+            }`}
           >
             {active && (
               <motion.span
@@ -29,7 +34,7 @@ export default function NavLinks({ items }: { items: NavItem[] }) {
               />
             )}
             <span className="relative">{it.label}</span>
-          </Link>
+          </PendingLink>
         );
       })}
     </nav>

@@ -43,7 +43,7 @@ export default function Countdown() {
     return () => clearInterval(id);
   }, []);
 
-  if (left === null) return <div className="h-[132px]" aria-hidden />;
+  if (left === null) return <div className="h-[132px] sm:h-[152px]" aria-hidden />;
   if (isDay) return <p className="font-accent text-5xl text-gold">¡Feliz Navidad!</p>;
 
   const parts: [string, string][] = [

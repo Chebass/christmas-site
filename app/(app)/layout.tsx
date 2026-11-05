@@ -1,10 +1,11 @@
 import AppHeader from "@/components/AppHeader";
+import { NavigationProvider } from "@/components/NavigationProvider";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <NavigationProvider>
       <AppHeader />
-      <div className="flex flex-1 flex-col">{children}</div>
-    </>
+      {children}
+    </NavigationProvider>
   );
 }
