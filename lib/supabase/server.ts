@@ -1,7 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
+import { connection } from "next/server";
 import { cookies } from "next/headers";
 
 export async function createClient() {
+  // Todo acceso a datos de usuario es por petición, nunca prerenderizado.
+  await connection();
   const cookieStore = await cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

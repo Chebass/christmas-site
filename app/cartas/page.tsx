@@ -37,7 +37,7 @@ export default function CartasPage() {
   return (
     <>
       <AppHeader />
-      <main className="mx-auto w-full max-w-4xl flex-1 px-5 pb-16 pt-2">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-16 pt-2">
         <Suspense fallback={<p className="font-hand p-8 text-2xl text-gold">Revisando el buzón…</p>}>
           <Data />
         </Suspense>

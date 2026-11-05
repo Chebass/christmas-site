@@ -87,6 +87,22 @@ body {
   }
 }
 
+/* Borde de carta aérea (Par Avion) */
+.airmail-frame {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--red) 0 14px,
+    var(--cream) 14px 28px,
+    #2f5d8a 28px 42px,
+    var(--cream) 42px 56px
+  );
+}
+
+/* El lienzo de tldraw toma el color del papel */
+.papelote .tl-container.tl-theme__light {
+  --tl-color-background: #f6ecd2;
+}
+
 .glass {
   background: rgba(247, 239, 224, 0.06);
   border: 1px solid rgba(227, 184, 115, 0.25);
