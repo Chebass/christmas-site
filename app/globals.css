@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* Paleta basada en la referencia: verde agua oscuro, azul noche, rojo profundo, dorado y crema. */
+:root {
+  --night: #0b1a1c;
+  --pine: #123a36;
+  --teal: #1d5a52;
+  --navy: #0f2233;
+  --red: #b3363d;
+  --red-deep: #8a2430;
+  --gold: #e3b873;
+  --gold-soft: #f1d9a8;
+  --cream: #f7efe0;
+  --paper: #f3e6c8;
+  --ink: #2b2118;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@theme inline {
+  --color-night: var(--night);
+  --color-pine: var(--pine);
+  --color-teal: var(--teal);
+  --color-navy: var(--navy);
+  --color-red: var(--red);
+  --color-red-deep: var(--red-deep);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-fraunces);
+  --font-hand: var(--font-caveat);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 50% -10%, rgba(29, 90, 82, 0.55), transparent 60%),
+    radial-gradient(900px 600px at 90% 110%, rgba(15, 34, 51, 0.9), transparent 60%),
+    var(--night);
+  color: var(--cream);
+  font-family: var(--font-body), system-ui, sans-serif;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--cream);
+}
+
+/* Botón primario con presión al click (emil: feedback inmediato, solo transform/opacity). */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-red {
+  background: var(--red);
+  color: var(--cream);
+  box-shadow: 0 8px 24px -10px rgba(179, 54, 61, 0.8);
+}
+.btn-gold {
+  background: var(--gold);
+  color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-red:hover {
+    background: #c4434b;
+  }
+  .btn-gold:hover {
+    background: var(--gold-soft);
+  }
+}
+
+.glass {
+  background: rgba(247, 239, 224, 0.06);
+  border: 1px solid rgba(227, 184, 115, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.9rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(247, 239, 224, 0.18);
+  padding: 0.75rem 1rem;
+  color: var(--cream);
+  font-size: 1rem; /* 16px evita el zoom en iOS */
+  transition: border-color 160ms var(--ease-out);
+}
+.input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

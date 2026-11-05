@@ -1,0 +1,29 @@
+﻿{
+    "version":  1,
+    "skills":  {
+                   "emil-design-eng":  {
+                                           "source":  "emilkowalski/skills",
+                                           "sourceType":  "github",
+                                           "skillPath":  "skills/emil-design-eng/SKILL.md",
+                                           "computedHash":  "74e0ede3a72c476a4c293e1e34d75fa1713f83bdc5c6c1cd76f1002fc564ecc6"
+                                       },
+                   "frontend-design":  {
+                                           "source":  "anthropics/skills",
+                                           "sourceType":  "github",
+                                           "skillPath":  "skills/frontend-design/SKILL.md",
+                                           "computedHash":  "106acf230014cbb43ca34e6410371321b56ca742f9ee0442e8ec05bf02eb0384"
+                                       },
+                   "impeccable":  {
+                                      "source":  "pbakaus/impeccable",
+                                      "sourceType":  "github",
+                                      "skillPath":  ".agents/skills/impeccable/SKILL.md",
+                                      "computedHash":  "fd2bd2b37e16d8a5ed3a5101288b360b9dcad0d664f7f333cc1df7654e79ea1f"
+                                  },
+                   "web-design-guidelines":  {
+                                                 "source":  "vercel-labs/agent-skills",
+                                                 "sourceType":  "github",
+                                                 "skillPath":  "skills/web-design-guidelines/SKILL.md",
+                                                 "computedHash":  "a6a44d5498f7e8f68289902f3dedfc6f38ae0cee1e96527c80724cf27f727c2a"
+                                             }
+               }
+}
