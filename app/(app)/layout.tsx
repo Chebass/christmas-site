@@ -3,9 +3,6 @@ import { NavigationProvider } from "@/components/NavigationProvider";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <NavigationProvider>
-      <AppHeader />
-      {children}
-    </NavigationProvider>
+    <NavigationProvider header={<AppHeader />}>{children}</NavigationProvider>
   );
 }

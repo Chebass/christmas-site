@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import Modal from "./Modal";
@@ -33,6 +34,7 @@ export default function LetterEditor({
   const [stamp, setStamp] = useState("estrella");
   const [scheduled, setScheduled] = useState(false);
   const [when, setWhen] = useState(defaultDate);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -71,7 +73,12 @@ export default function LetterEditor({
   });
 
   return (
-    <Modal onClose={onClose} label="Escribir carta" className="max-w-3xl">
+    <Modal
+      onClose={onClose}
+      label="Escribir carta"
+      className="max-w-3xl"
+      closeOnEscape={!pickerOpen}
+    >
       <form onSubmit={send} className="flex min-h-0 flex-1 flex-col p-6 sm:p-8">
         <p className="font-accent text-2xl text-red-deep">Para {partner.display_name},</p>
 
@@ -150,12 +157,21 @@ export default function LetterEditor({
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
               className="overflow-hidden"
             >
-              <div className="mt-3 rounded-2xl bg-ink/5 p-3">
-                <p className="font-accent mb-1 text-center text-lg capitalize text-red-deep">
-                  Se abrirá el {whenLabel}
-                </p>
-                <SchedulePicker value={when} onChange={setWhen} />
-              </div>
+              <button
+                type="button"
+                onClick={() => setPickerOpen(true)}
+                className="group mt-3 flex w-full items-center justify-between gap-3 rounded-2xl bg-ink/5 px-4 py-3 text-left transition-colors hover:bg-ink/10"
+              >
+                <span>
+                  <span className="block text-xs uppercase tracking-wider text-ink/50">
+                    Se abrirá el
+                  </span>
+                  <span className="font-accent text-xl text-red-deep">{whenLabel}</span>
+                </span>
+                <span className="rounded-full bg-ink/10 px-3 py-1 text-sm font-medium transition-colors group-hover:bg-red group-hover:text-cream">
+                  Cambiar
+                </span>
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
@@ -175,6 +191,38 @@ export default function LetterEditor({
           </button>
         </div>
       </form>
+      {/* Portal: el diálogo del editor tiene transform, así que un fixed interno se rompería */}
+      {createPortal(
+        <AnimatePresence>
+          {pickerOpen && (
+            <Modal
+              key="picker"
+              label="Elegir fecha y hora"
+              className="max-w-xl"
+              onClose={() => setPickerOpen(false)}
+            >
+              <div className="p-6 sm:p-8">
+                <p className="font-accent text-2xl text-red-deep">¿Cuándo se abrirá?</p>
+                <p className="mb-4 text-sm text-ink/60">
+                  La carta llegará sellada y solo podrá abrirse en ese momento.
+                </p>
+                <SchedulePicker value={when} onChange={setWhen} />
+                <p className="font-accent mt-4 text-center text-xl text-red-deep">{whenLabel}</p>
+                <div className="mt-6 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setPickerOpen(false)}
+                    className="btn btn-red"
+                  >
+                    Listo
+                  </button>
+                </div>
+              </div>
+            </Modal>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
     </Modal>
   );
 }

@@ -7,15 +7,17 @@ export default function Modal({
   onClose,
   label,
   className = "max-w-xl",
+  closeOnEscape = true,
   children,
 }: {
   onClose: () => void;
   label: string;
   className?: string;
+  closeOnEscape?: boolean;
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const onKey = (e: KeyboardEvent) => closeOnEscape && e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -23,7 +25,7 @@ export default function Modal({
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [onClose]);
+  }, [onClose, closeOnEscape]);
 
   return (
     <motion.div

@@ -23,7 +23,13 @@ export const useNavigationPending = () => useContext(NavCtx);
 
 // Muestra de inmediato el skeleton del destino al hacer click,
 // sin esperar la respuesta del servidor.
-export function NavigationProvider({ children }: { children: React.ReactNode }) {
+export function NavigationProvider({
+  header,
+  children,
+}: {
+  header: React.ReactNode;
+  children: React.ReactNode;
+}) {
   const [pending, setPending] = useState<string | null>(null);
   const start = useCallback((href: string) => setPending(href), []);
   const clear = useCallback(() => setPending(null), []);
@@ -38,6 +44,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
 
   return (
     <NavCtx.Provider value={value}>
+      {header}
       {pending && <PendingPage href={pending} />}
       <div className={pending ? "hidden" : "flex flex-1 flex-col"}>{children}</div>
     </NavCtx.Provider>
