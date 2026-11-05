@@ -25,3 +25,11 @@ export async function createClient() {
     },
   );
 }
+
+// Identidad verificada localmente (JWT) + cliente listo para consultas.
+export async function getSessionUser() {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  const sub = data?.claims?.sub;
+  return { supabase, user: sub ? { id: sub } : null };
+}

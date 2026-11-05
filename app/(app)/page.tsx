@@ -1,15 +1,12 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { getSessionUser } from "@/lib/supabase/server";
 import Countdown from "@/components/Countdown";
 import ListCard from "@/components/ListCard";
 import { HomeSkeleton } from "@/components/Skeleton";
 
 async function Cards() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { supabase, user } = await getSessionUser();
   if (!user) redirect("/login");
 
   const { data: profiles } = await supabase

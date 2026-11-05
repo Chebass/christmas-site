@@ -1,43 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { resizeImage } from "@/lib/image";
 import Avatar from "@/components/Avatar";
 
-export default function ProfileForm() {
+export default function ProfileForm({
+  uid,
+  initialName,
+  initialAvatarUrl,
+}: {
+  uid: string;
+  initialName: string;
+  initialAvatarUrl: string | null;
+}) {
   const router = useRouter();
-  const supabase = createClient();
-  const [uid, setUid] = useState<string | null>(null);
-  const [name, setName] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [supabase] = useState(createClient);
+  const [name, setName] = useState(initialName);
+  const [avatarUrl] = useState<string | null>(initialAvatarUrl);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) return;
-      setUid(user.id);
-      const { data } = await supabase
-        .from("profiles")
-        .select("display_name, avatar_url")
-        .eq("id", user.id)
-        .single();
-      if (data) {
-        setName(data.display_name ?? "");
-        setAvatarUrl(data.avatar_url);
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
     if (!f) return;
@@ -47,7 +33,6 @@ export default function ProfileForm() {
 
   async function onSave(e: React.FormEvent) {
     e.preventDefault();
-    if (!uid) return;
     if (!name.trim()) return setError("Escribe tu nombre.");
     if (!file && !avatarUrl) return setError("Elige una foto para tu perfil.");
     setSaving(true);

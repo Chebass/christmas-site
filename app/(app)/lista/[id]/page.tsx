@@ -1,17 +1,14 @@
 import { Suspense } from "react";
 import { PendingLink } from "@/components/NavigationProvider";
 import { notFound, redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { getSessionUser } from "@/lib/supabase/server";
 import PapeloteLoader from "@/components/PapeloteLoader";
 import Avatar from "@/components/Avatar";
 import { BoardSkeleton } from "@/components/Skeleton";
 
 async function Board({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { supabase, user } = await getSessionUser();
   if (!user) redirect("/login");
 
   const [{ data: profile }, { data: list }] = await Promise.all([
